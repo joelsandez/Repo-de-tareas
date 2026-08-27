@@ -1,4 +1,4 @@
-MPASM 5.87                       TP2_C+S.ASM   8-26-2026  21:21:29         PAGE  1
+MPASM 5.87                       TP2_C+S.ASM   8-27-2026  7:21:51         PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -28,56 +28,126 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00011 ; CONFIG2
                       00012 ; __config 0x3FFF
 2008   3FFF           00013  __CONFIG _CONFIG2, _BOR4V_BOR40V & _WRT_OFF
-                      00014 
-Warning[205]: Found directive in column 1. (ORG)
-                      00015 ORG 0x00 
-Warning[203]: Found opcode in column 1. (GOTO)
-0000   2???           00016 GOTO INICIO
-                      00017  
-                      00018  
-Warning[205]: Found directive in column 1. (ORG)
-                      00019 ORG 0x04
-0004                  00020 INICIO
-0004   2???           00021     CALL CLEAR_VAR;
-0005   2???           00022     CALL SET_VAR;
-0006   2???           00023     CALL TIMER;
-0007   2???           00024     GOTO PORT_REFRESH;
-                      00025     
-                      00026     
-                      00027     
-0008                  00028 CLEAR_VAR
-0008   1303           00029     BCF STATUS,6
-0009   1283           00030     BCF STATUS,5
-000A   0103           00031     CLRW
-000B   0188           00032     CLRF PORTD
-000C   0189           00033     CLRF PORTE
-000D   0008           00034     RETURN
-                      00035 
-000E                  00036 SET_VAR
-000E   1683           00037     BSF STATUS,5
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-000F   0188           00038     CLRF TRISD
-MPASM 5.87                       TP2_C+S.ASM   8-26-2026  21:21:29         PAGE  2
+Warning[207]: Found label after column 1. (CONTADOR)
+  00000020            00014  CONTADOR EQU 0x20
+Warning[207]: Found label after column 1. (CAMBIO)
+  00000021            00015  CAMBIO EQU 0x21
+Warning[207]: Found label after column 1. (MITAD)
+  00000022            00016  MITAD EQU 0x22
+Warning[207]: Found label after column 1. (INTERCALADO)
+  00000023            00017  INTERCALADO EQU 0x23
+Warning[207]: Found label after column 1. (TIPE_MODE)
+  00000024            00018  TIPE_MODE EQU 0x24
+Warning[207]: Found label after column 1. (ESTADO_ANTERIOR)
+  00000025            00019  ESTADO_ANTERIOR EQU 0x25
+                      00020 
+                      00021  ORG 0x00 
+0000   2???           00022  GOTO INICIO
+                      00023  
+                      00024  
+                      00025  ORG 0x04
+0004                  00026 INICIO
+0004   2???           00027     CALL CLEAR_VAR;
+0005   2???           00028     CALL SET_VAR;
+0006   2???           00029     GOTO TIMER;
+                      00030     
+                      00031     
+                      00032     
+0007                  00033 CLEAR_VAR
+0007   1303           00034     BCF STATUS,6
+0008   1283           00035     BCF STATUS,5
+0009   0103           00036     CLRW
+MPASM 5.87                       TP2_C+S.ASM   8-27-2026  7:21:51         PAGE  2
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
+000A   0188           00037     CLRF PORTD
+000B   0189           00038     CLRF PORTE
+000C   01A3           00039     CLRF INTERCALADO
+000D   01A2           00040     CLRF MITAD
+000E   01A4           00041     CLRF TIPE_MODE
+000F   0008           00042     RETURN
+                      00043 
+0010                  00044 SET_VAR
+0010   30F0           00045     MOVLW 0xF0
+0011   00A2           00046     MOVWF MITAD
+0012   3055           00047     MOVLW 0x55
+0013   00A3           00048     MOVWF INTERCALADO
+0014   1683           00049     BSF STATUS,5
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0010   1409           00039     BSF TRISE, 0
-0011   0008           00040     RETURN
-                      00041     
-                      00042     
-0012                  00043 TIMER
-                      00044     
-                      00045     
-                      00046     
-0012                  00047 PORT_REFRESH
-                      00048     
-                      00049     
-Warning[205]: Found directive in column 1. (END)
-3FFF 3FFF             00050 END
-MPASM 5.87                       TP2_C+S.ASM   8-26-2026  21:21:29         PAGE  3
+0015   0188           00050     CLRF TRISD
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0016   1409           00051     BSF TRISE, 0
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0017   1489           00052     BSF TRISE, 1
+0018   1283           00053     BCF STATUS,5
+0019   3009           00054     MOVLW PORTE
+001A   00A5           00055     MOVWF ESTADO_ANTERIOR
+001B   0008           00056     RETURN
+                      00057     
+                      00058     
+001C                  00059 TIMER
+                      00060     
+001C   2???           00061     CALL COMPROBAR_ENTRADAS
+001D   2???           00062     GOTO PORT_REFRESH
+                      00063     
+                      00064     
+001E                  00065 PORT_REFRESH   
+001E   2???           00066     CALL MODOS
+001F   0088           00067     MOVWF PORTD
+0020   2???           00068     GOTO TIMER
+                      00069     
+0021                  00070 MODOS
+0021   1C24           00071     BTFSS TIPE_MODE,0
+0022   2???           00072     GOTO CONTAR
+0023   2???           00073     GOTO BLINK
+                      00074     
+                      00075     
+0024                  00076 CONTAR
+0024   0FA0           00077     INCFSZ CONTADOR,1
+0025   0008           00078     RETURN
+0026                  00079 BLINK
+0026   3003           00080     MOVLW 0x03
+Message[305]: Using default destination of 1 (file).
+0027   02A4           00081     SUBWF TIPE_MODE
+0028   1903           00082     BTFSC STATUS, Z
+0029   2???           00083     GOTO LUCES_1
+002A   2???           00084     GOTO LUCES_2
+                      00085     
+MPASM 5.87                       TP2_C+S.ASM   8-27-2026  7:21:51         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00086     
+002B                  00087 LUCES_1
+Message[305]: Using default destination of 1 (file).
+002B   09A2           00088     COMF MITAD
+002C   3022           00089     MOVLW MITAD
+002D   0008           00090     RETURN
+002E                  00091 LUCES_2
+Message[305]: Using default destination of 1 (file).
+002E   09A3           00092     COMF INTERCALADO
+002F   3023           00093     MOVLW INTERCALADO
+0030   0008           00094     RETURN
+                      00095    
+0031                  00096 COMPROBAR_ENTRADAS
+0031   1283           00097     BCF STATUS, 5
+0032   1303           00098     BCF STATUS, 6
+0033   0809           00099     MOVF PORTE, W
+0034   0625           00100     XORWF ESTADO_ANTERIOR, W
+0035   3901           00101     ANDLW b'00000001' 
+0036   1903           00102     BTFSC STATUS, Z
+0037   0008           00103     RETURN
+Message[305]: Using default destination of 1 (file).
+0038   0AA4           00104     INCF TIPE_MODE
+0039   0008           00105     RETURN
+                      00106     
+3FFF 3FFF             00107     END
+MPASM 5.87                       TP2_C+S.ASM   8-27-2026  7:21:51         PAGE  4
 
 
 SYMBOL TABLE
@@ -119,6 +189,7 @@ BAUDCTL                           00000187
 BCLIE                             00000003
 BCLIF                             00000003
 BF                                00000000
+BLINK                             00000026
 BRG0                              00000000
 BRG1                              00000001
 BRG10                             00000002
@@ -135,13 +206,13 @@ BRG5                              00000005
 BRG6                              00000006
 BRG7                              00000007
 BRG8                              00000000
-BRG9                              00000001
-MPASM 5.87                       TP2_C+S.ASM   8-26-2026  21:21:29         PAGE  4
+MPASM 5.87                       TP2_C+S.ASM   8-27-2026  7:21:51         PAGE  5
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+BRG9                              00000001
 BRGH                              00000002
 C                                 00000000
 C1CH0                             00000000
@@ -167,6 +238,7 @@ C2R                               00000002
 C2REN                             00000004
 C2RSEL                            00000004
 C2SYNC                            00000000
+CAMBIO                            00000021
 CCP1CON                           00000017
 CCP1IE                            00000002
 CCP1IF                            00000002
@@ -193,20 +265,23 @@ CCPR2H                            0000001C
 CCPR2L                            0000001B
 CHS0                              00000002
 CHS1                              00000003
-CHS2                              00000004
-CHS3                              00000005
-MPASM 5.87                       TP2_C+S.ASM   8-26-2026  21:21:29         PAGE  5
+MPASM 5.87                       TP2_C+S.ASM   8-27-2026  7:21:51         PAGE  6
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+CHS2                              00000004
+CHS3                              00000005
 CKE                               00000006
 CKP                               00000004
-CLEAR_VAR                         00000008
+CLEAR_VAR                         00000007
 CM1CON0                           00000107
 CM2CON0                           00000108
 CM2CON1                           00000109
+COMPROBAR_ENTRADAS                00000031
+CONTADOR                          00000020
+CONTAR                            00000024
 CREN                              00000004
 CSRC                              00000007
 D                                 00000005
@@ -233,6 +308,7 @@ EEDATH                            0000010E
 EEIE                              00000004
 EEIF                              00000004
 EEPGD                             00000007
+ESTADO_ANTERIOR                   00000025
 F                                 00000001
 FERR                              00000002
 FSR                               00000004
@@ -248,18 +324,19 @@ I2C_READ                          00000002
 I2C_START                         00000003
 I2C_STOP                          00000004
 INDF                              00000000
-INICIO                            00000004
-INTCON                            0000000B
-INTE                              00000004
-INTEDG                            00000006
-INTF                              00000001
-IOCB                              00000096
-MPASM 5.87                       TP2_C+S.ASM   8-26-2026  21:21:29         PAGE  6
+MPASM 5.87                       TP2_C+S.ASM   8-27-2026  7:21:51         PAGE  7
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+INICIO                            00000004
+INTCON                            0000000B
+INTE                              00000004
+INTEDG                            00000006
+INTERCALADO                       00000023
+INTF                              00000001
+IOCB                              00000096
 IOCB0                             00000000
 IOCB1                             00000001
 IOCB2                             00000002
@@ -273,8 +350,12 @@ IRCF1                             00000005
 IRCF2                             00000006
 IRP                               00000007
 LTS                               00000001
+LUCES_1                           0000002B
+LUCES_2                           0000002E
 MC1OUT                            00000007
 MC2OUT                            00000006
+MITAD                             00000022
+MODOS                             00000021
 MSK                               00000093
 MSK0                              00000000
 MSK1                              00000001
@@ -302,6 +383,12 @@ OERR                              00000001
 OPTION_REG                        00000081
 OSCCON                            0000008F
 OSCTUNE                           00000090
+MPASM 5.87                       TP2_C+S.ASM   8-27-2026  7:21:51         PAGE  8
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 OSFIE                             00000007
 OSFIF                             00000007
 OSTS                              00000003
@@ -313,12 +400,6 @@ PCLATH                            0000000A
 PCON                              0000008E
 PDC0                              00000000
 PDC1                              00000001
-MPASM 5.87                       TP2_C+S.ASM   8-26-2026  21:21:29         PAGE  7
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 PDC2                              00000002
 PDC3                              00000003
 PDC4                              00000004
@@ -335,7 +416,7 @@ PORTB                             00000006
 PORTC                             00000007
 PORTD                             00000008
 PORTE                             00000009
-PORT_REFRESH                      00000012
+PORT_REFRESH                      0000001E
 PR2                               00000092
 PRSEN                             00000007
 PS0                               00000000
@@ -361,6 +442,12 @@ RA6                               00000006
 RA7                               00000007
 RB0                               00000000
 RB1                               00000001
+MPASM 5.87                       TP2_C+S.ASM   8-27-2026  7:21:51         PAGE  9
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 RB2                               00000002
 RB3                               00000003
 RB4                               00000004
@@ -372,12 +459,6 @@ RBIF                              00000000
 RC0                               00000000
 RC1                               00000001
 RC2                               00000002
-MPASM 5.87                       TP2_C+S.ASM   8-26-2026  21:21:29         PAGE  8
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 RC3                               00000003
 RC4                               00000004
 RC5                               00000005
@@ -419,7 +500,13 @@ SCKP                              00000004
 SCS                               00000000
 SEN                               00000000
 SENDB                             00000003
-SET_VAR                           0000000E
+SET_VAR                           00000010
+MPASM 5.87                       TP2_C+S.ASM   8-27-2026  7:21:51         PAGE 10
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 SMP                               00000007
 SPBRG                             00000099
 SPBRGH                            0000009A
@@ -431,12 +518,6 @@ SREN                              00000005
 SSPADD                            00000093
 SSPBUF                            00000013
 SSPCON                            00000014
-MPASM 5.87                       TP2_C+S.ASM   8-26-2026  21:21:29         PAGE  9
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 SSPCON2                           00000091
 SSPEN                             00000005
 SSPIE                             00000003
@@ -472,12 +553,19 @@ T1SYNC                            00000002
 T2CKPS0                           00000000
 T2CKPS1                           00000001
 T2CON                             00000012
-TIMER                             00000012
+TIMER                             0000001C
+TIPE_MODE                         00000024
 TMR0                              00000001
 TMR0IE                            00000005
 TMR0IF                            00000002
 TMR1                              0000000E
 TMR1CS                            00000001
+MPASM 5.87                       TP2_C+S.ASM   8-27-2026  7:21:51         PAGE 11
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 TMR1GE                            00000006
 TMR1H                             0000000F
 TMR1IE                            00000000
@@ -490,12 +578,6 @@ TMR2IF                            00000001
 TMR2ON                            00000002
 TOUTPS0                           00000003
 TOUTPS1                           00000004
-MPASM 5.87                       TP2_C+S.ASM   8-26-2026  21:21:29         PAGE 10
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 TOUTPS2                           00000005
 TOUTPS3                           00000006
 TRISA                             00000085
@@ -537,6 +619,12 @@ TRISD7                            00000007
 TRISE                             00000089
 TRISE0                            00000000
 TRISE1                            00000001
+MPASM 5.87                       TP2_C+S.ASM   8-27-2026  7:21:51         PAGE 12
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 TRISE2                            00000002
 TRISE3                            00000003
 TRMT                              00000001
@@ -549,12 +637,6 @@ TX8_9                             00000006
 TX9                               00000006
 TX9D                              00000000
 TXD8                              00000000
-MPASM 5.87                       TP2_C+S.ASM   8-26-2026  21:21:29         PAGE 11
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 TXEN                              00000005
 TXIE                              00000004
 TXIF                              00000004
@@ -596,6 +678,12 @@ WREN                              00000002
 WRERR                             00000003
 WUE                               00000001
 Z                                 00000002
+MPASM 5.87                       TP2_C+S.ASM   8-27-2026  7:21:51         PAGE 13
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 _BOR21V                           00003EFF
 _BOR40V                           00003FFF
 _BOR4V_BOR21V                     00003EFF
@@ -608,12 +696,6 @@ _BOR_NSLEEP                       00003EFF
 _BOR_OFF                          00003CFF
 _BOR_ON                           00003FFF
 _BOR_SBODEN                       00003DFF
-MPASM 5.87                       TP2_C+S.ASM   8-26-2026  21:21:29         PAGE 12
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 _CONFIG1                          00002007
 _CONFIG2                          00002008
 _CPD_OFF                          00003FFF
@@ -655,6 +737,12 @@ _LVP_ON                           00003FFF
 _MCLRE_OFF                        00003FDF
 _MCLRE_ON                         00003FFF
 _PWRTE_OFF                        00003FFF
+MPASM 5.87                       TP2_C+S.ASM   8-27-2026  7:21:51         PAGE 14
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 _PWRTE_ON                         00003FEF
 _WDTE_OFF                         00003FF7
 _WDTE_ON                          00003FFF
@@ -667,14 +755,8 @@ _WRT_OFF                          00003FFF
 _XT_OSC                           00003FF9
 __16F887                          00000001
 
-MPASM 5.87                       TP2_C+S.ASM   8-26-2026  21:21:29         PAGE 13
-
-
-
-
-
 Errors   :     0
-Warnings :     4 reported,     0 suppressed
-Messages :     2 reported,     0 suppressed
+Warnings :     6 reported,     0 suppressed
+Messages :     7 reported,     0 suppressed
 
 
