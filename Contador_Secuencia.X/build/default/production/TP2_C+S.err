@@ -1,0 +1,6 @@
+Warning[205] C:\USERS\RRROM\JFACULTAD\REPO-DE-TAREAS\CONTADOR_SECUENCIA.X\TP2_C+S.ASM 15 : Found directive in column 1. (ORG)
+Warning[203] C:\USERS\RRROM\JFACULTAD\REPO-DE-TAREAS\CONTADOR_SECUENCIA.X\TP2_C+S.ASM 16 : Found opcode in column 1. (GOTO)
+Warning[205] C:\USERS\RRROM\JFACULTAD\REPO-DE-TAREAS\CONTADOR_SECUENCIA.X\TP2_C+S.ASM 19 : Found directive in column 1. (ORG)
+Message[302] C:\USERS\RRROM\JFACULTAD\REPO-DE-TAREAS\CONTADOR_SECUENCIA.X\TP2_C+S.ASM 38 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\RRROM\JFACULTAD\REPO-DE-TAREAS\CONTADOR_SECUENCIA.X\TP2_C+S.ASM 39 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[205] C:\USERS\RRROM\JFACULTAD\REPO-DE-TAREAS\CONTADOR_SECUENCIA.X\TP2_C+S.ASM 50 : Found directive in column 1. (END)
