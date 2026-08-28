@@ -1,12 +1,12 @@
 MPLINK 5.09, LINKER
-Linker Map File - Created Thu Aug 27 23:52:06 2026
+Linker Map File - Created Fri Aug 28 00:02:41 2026
 
                                  Section Info
                   Section       Type    Address   Location Size(Bytes)
                 ---------  ---------  ---------  ---------  ---------
                    .org_0       code   0x000000    program   0x000002
                    .cinit    romdata   0x000001    program   0x000004
-                   .org_1       code   0x000004    program   0x000044
+                   .org_1       code   0x000004    program   0x000046
 .config_2007_BUILD/DEFAULT/PRODUCTION/TP2_C+S       code   0x002007    program   0x000002
 .config_2008_BUILD/DEFAULT/PRODUCTION/TP2_C+S       code   0x002008    program   0x000002
 
@@ -16,9 +16,9 @@ Linker Map File - Created Thu Aug 27 23:52:06 2026
                                Start         End      
                            ---------   ---------      
                             0x000000    0x000002      
-                            0x000004    0x000025      
+                            0x000004    0x000026      
                             0x002007    0x002008      
-            39 out of 8455 program addresses used, program memory utilization is 0%
+            40 out of 8455 program addresses used, program memory utilization is 0%
 
 
 
@@ -26,13 +26,13 @@ Linker Map File - Created Thu Aug 27 23:52:06 2026
                      Name    Address   Location    Storage File                     
                 ---------  ---------  ---------  --------- ---------                
                 CLEAR_VAR   0x000007    program     static C:\Users\rrrom\JFacultad\Repo-de-tareas\Contador_Secuencia.X\TP2_C+S.asm
-                   CONTAR   0x000021    program     static C:\Users\rrrom\JFacultad\Repo-de-tareas\Contador_Secuencia.X\TP2_C+S.asm
+                   CONTAR   0x000022    program     static C:\Users\rrrom\JFacultad\Repo-de-tareas\Contador_Secuencia.X\TP2_C+S.asm
                    INICIO   0x000004    program     static C:\Users\rrrom\JFacultad\Repo-de-tareas\Contador_Secuencia.X\TP2_C+S.asm
-                  LUCES_2   0x000023    program     static C:\Users\rrrom\JFacultad\Repo-de-tareas\Contador_Secuencia.X\TP2_C+S.asm
-                    MODOS   0x00001e    program     static C:\Users\rrrom\JFacultad\Repo-de-tareas\Contador_Secuencia.X\TP2_C+S.asm
-             PORT_REFRESH   0x00001b    program     static C:\Users\rrrom\JFacultad\Repo-de-tareas\Contador_Secuencia.X\TP2_C+S.asm
+                  LUCES_2   0x000024    program     static C:\Users\rrrom\JFacultad\Repo-de-tareas\Contador_Secuencia.X\TP2_C+S.asm
+                    MODOS   0x00001f    program     static C:\Users\rrrom\JFacultad\Repo-de-tareas\Contador_Secuencia.X\TP2_C+S.asm
+             PORT_REFRESH   0x00001c    program     static C:\Users\rrrom\JFacultad\Repo-de-tareas\Contador_Secuencia.X\TP2_C+S.asm
                   SET_VAR   0x000010    program     static C:\Users\rrrom\JFacultad\Repo-de-tareas\Contador_Secuencia.X\TP2_C+S.asm
-                    TIMER   0x00001a    program     static C:\Users\rrrom\JFacultad\Repo-de-tareas\Contador_Secuencia.X\TP2_C+S.asm
+                    TIMER   0x00001b    program     static C:\Users\rrrom\JFacultad\Repo-de-tareas\Contador_Secuencia.X\TP2_C+S.asm
 
 
 
@@ -42,10 +42,10 @@ Linker Map File - Created Thu Aug 27 23:52:06 2026
                    INICIO   0x000004    program     static C:\Users\rrrom\JFacultad\Repo-de-tareas\Contador_Secuencia.X\TP2_C+S.asm
                 CLEAR_VAR   0x000007    program     static C:\Users\rrrom\JFacultad\Repo-de-tareas\Contador_Secuencia.X\TP2_C+S.asm
                   SET_VAR   0x000010    program     static C:\Users\rrrom\JFacultad\Repo-de-tareas\Contador_Secuencia.X\TP2_C+S.asm
-                    TIMER   0x00001a    program     static C:\Users\rrrom\JFacultad\Repo-de-tareas\Contador_Secuencia.X\TP2_C+S.asm
-             PORT_REFRESH   0x00001b    program     static C:\Users\rrrom\JFacultad\Repo-de-tareas\Contador_Secuencia.X\TP2_C+S.asm
-                    MODOS   0x00001e    program     static C:\Users\rrrom\JFacultad\Repo-de-tareas\Contador_Secuencia.X\TP2_C+S.asm
-                   CONTAR   0x000021    program     static C:\Users\rrrom\JFacultad\Repo-de-tareas\Contador_Secuencia.X\TP2_C+S.asm
-                  LUCES_2   0x000023    program     static C:\Users\rrrom\JFacultad\Repo-de-tareas\Contador_Secuencia.X\TP2_C+S.asm
+                    TIMER   0x00001b    program     static C:\Users\rrrom\JFacultad\Repo-de-tareas\Contador_Secuencia.X\TP2_C+S.asm
+             PORT_REFRESH   0x00001c    program     static C:\Users\rrrom\JFacultad\Repo-de-tareas\Contador_Secuencia.X\TP2_C+S.asm
+                    MODOS   0x00001f    program     static C:\Users\rrrom\JFacultad\Repo-de-tareas\Contador_Secuencia.X\TP2_C+S.asm
+                   CONTAR   0x000022    program     static C:\Users\rrrom\JFacultad\Repo-de-tareas\Contador_Secuencia.X\TP2_C+S.asm
+                  LUCES_2   0x000024    program     static C:\Users\rrrom\JFacultad\Repo-de-tareas\Contador_Secuencia.X\TP2_C+S.asm
 
 
