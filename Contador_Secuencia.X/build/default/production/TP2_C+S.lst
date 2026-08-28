@@ -1,4 +1,4 @@
-MPASM 5.87                       TP2_C+S.ASM   8-27-2026  23:38:06         PAGE  1
+MPASM 5.87                       TP2_C+S.ASM   8-27-2026  23:52:05         PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -57,14 +57,14 @@ Warning[207]: Found label after column 1. (ESTADO_ANTERIOR)
 0007   1303           00034     BCF STATUS,6
 0008   1283           00035     BCF STATUS,5
 0009   0103           00036     CLRW
-MPASM 5.87                       TP2_C+S.ASM   8-27-2026  23:38:06         PAGE  2
+MPASM 5.87                       TP2_C+S.ASM   8-27-2026  23:52:05         PAGE  2
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
 000A   0188           00037     CLRF PORTD
-000B   0189           00038     CLRF PORTE
+000B   0187           00038     CLRF PORTC
 000C   01A3           00039     CLRF INTERCALADO
 000D   01A2           00040     CLRF MITAD
 000E   01A4           00041     CLRF TIPE_MODE
@@ -79,72 +79,69 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
 0015   0188           00050     CLRF TRISD
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0016   1409           00051     BSF TRISE, 0
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0017   1489           00052     BSF TRISE, 1
-0018   1283           00053     BCF STATUS,5
-0019   3009           00054     MOVLW PORTE
-001A   00A5           00055     MOVWF ESTADO_ANTERIOR
-001B   0008           00056     RETURN
-                      00057     
+0016   1407           00051     BSF TRISC, 0
+0017   1283           00052     BCF STATUS,5
+0018   3007           00053     MOVLW PORTC
+0019   0008           00054     RETURN
+                      00055     
+                      00056     
+001A                  00057 TIMER
                       00058     
-001C                  00059 TIMER
-                      00060     
-                      00061 ;    CALL COMPROBAR_ENTRADAS
-001C   2???           00062     GOTO PORT_REFRESH
-                      00063     
-                      00064     
-001D                  00065 PORT_REFRESH   
-001D   2???           00066     CALL MODOS
-001E   0088           00067     MOVWF PORTD
-001F   2???           00068     GOTO TIMER
-                      00069     
-0020                  00070 MODOS
-0020   1C07           00071     BTFSS PORTC,0
-0021   2???           00072     GOTO CONTAR
-0022   2???           00073     GOTO LUCES_2
-                      00074     
-                      00075     
-0023                  00076 CONTAR
-0023   0F20           00077     INCFSZ CONTADOR,W
-0024   0008           00078     RETURN
-                      00079 ;BLINK
-                      00080 ;    MOVLW 0x03
-                      00081 ;    SUBWF TIPE_MODE
-                      00082 ;    BTFSC STATUS, Z
-                      00083 ;    GOTO LUCES_1
-                      00084 ;    GOTO LUCES_2
-                      00085     
-                      00086     
-MPASM 5.87                       TP2_C+S.ASM   8-27-2026  23:38:06         PAGE  3
+                      00059 ;    CALL COMPROBAR_ENTRADAS
+001A   2???           00060     GOTO PORT_REFRESH
+                      00061     
+                      00062     
+001B                  00063 PORT_REFRESH   
+001B   2???           00064     CALL MODOS
+001C   0088           00065     MOVWF PORTD
+001D   2???           00066     GOTO TIMER
+                      00067     
+001E                  00068 MODOS
+001E   1C07           00069     BTFSS PORTC,0
+001F   2???           00070     GOTO CONTAR
+0020   2???           00071     GOTO LUCES_2
+                      00072     
+                      00073     
+0021                  00074 CONTAR
+0021   0F20           00075     INCFSZ CONTADOR,W
+0022   0008           00076     RETURN
+                      00077 ;BLINK
+                      00078 ;    MOVLW 0x03
+                      00079 ;    SUBWF TIPE_MODE
+                      00080 ;    BTFSC STATUS, Z
+                      00081 ;    GOTO LUCES_1
+                      00082 ;    GOTO LUCES_2
+                      00083     
+                      00084     
+                      00085 ;LUCES_1
+                      00086 ;    COMF MITAD
+                      00087 ;    MOVLW MITAD
+MPASM 5.87                       TP2_C+S.ASM   8-27-2026  23:52:05         PAGE  3
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                      00087 ;LUCES_1
-                      00088 ;    COMF MITAD
-                      00089 ;    MOVLW MITAD
-                      00090 ;    RETURN
-0025                  00091 LUCES_2
+                      00088 ;    RETURN
+0023                  00089 LUCES_2
 Message[305]: Using default destination of 1 (file).
-0025   09A3           00092     COMF INTERCALADO
-0026   3023           00093     MOVLW INTERCALADO
-0027   0008           00094     RETURN
-                      00095    
-                      00096 ;COMPROBAR_ENTRADAS
-                      00097 ;    BCF STATUS, 5
-                      00098 ;    BCF STATUS, 6
-                      00099 ;    MOVF PORTE, W
-                      00100 ;    XORWF ESTADO_ANTERIOR, W
-                      00101 ;    ANDLW b'00000001' 
-                      00102 ;    BTFSC STATUS, Z
+0023   09A3           00090     COMF INTERCALADO
+0024   3023           00091     MOVLW INTERCALADO
+0025   0008           00092     RETURN
+                      00093    
+                      00094 ;COMPROBAR_ENTRADAS
+                      00095 ;    BCF STATUS, 5
+                      00096 ;    BCF STATUS, 6
+                      00097 ;    MOVF PORTE, W
+                      00098 ;    XORWF ESTADO_ANTERIOR, W
+                      00099 ;    ANDLW b'00000001' 
+                      00100 ;    BTFSC STATUS, Z
+                      00101 ;    RETURN
+                      00102 ;    INCF TIPE_MODE
                       00103 ;    RETURN
-                      00104 ;    INCF TIPE_MODE
-                      00105 ;    RETURN
-                      00106     
-3FFF 3FFF             00107     END
-MPASM 5.87                       TP2_C+S.ASM   8-27-2026  23:38:06         PAGE  4
+                      00104     
+3FFF 3FFF             00105     END
+MPASM 5.87                       TP2_C+S.ASM   8-27-2026  23:52:05         PAGE  4
 
 
 SYMBOL TABLE
@@ -203,7 +200,7 @@ BRG6                              00000006
 BRG7                              00000007
 BRG8                              00000000
 BRG9                              00000001
-MPASM 5.87                       TP2_C+S.ASM   8-27-2026  23:38:06         PAGE  5
+MPASM 5.87                       TP2_C+S.ASM   8-27-2026  23:52:05         PAGE  5
 
 
 SYMBOL TABLE
@@ -262,7 +259,7 @@ CCPR2L                            0000001B
 CHS0                              00000002
 CHS1                              00000003
 CHS2                              00000004
-MPASM 5.87                       TP2_C+S.ASM   8-27-2026  23:38:06         PAGE  6
+MPASM 5.87                       TP2_C+S.ASM   8-27-2026  23:52:05         PAGE  6
 
 
 SYMBOL TABLE
@@ -276,7 +273,7 @@ CM1CON0                           00000107
 CM2CON0                           00000108
 CM2CON1                           00000109
 CONTADOR                          00000020
-CONTAR                            00000023
+CONTAR                            00000021
 CREN                              00000004
 CSRC                              00000007
 D                                 00000005
@@ -321,7 +318,7 @@ I2C_STOP                          00000004
 INDF                              00000000
 INICIO                            00000004
 INTCON                            0000000B
-MPASM 5.87                       TP2_C+S.ASM   8-27-2026  23:38:06         PAGE  7
+MPASM 5.87                       TP2_C+S.ASM   8-27-2026  23:52:05         PAGE  7
 
 
 SYMBOL TABLE
@@ -345,11 +342,11 @@ IRCF1                             00000005
 IRCF2                             00000006
 IRP                               00000007
 LTS                               00000001
-LUCES_2                           00000025
+LUCES_2                           00000023
 MC1OUT                            00000007
 MC2OUT                            00000006
 MITAD                             00000022
-MODOS                             00000020
+MODOS                             0000001E
 MSK                               00000093
 MSK0                              00000000
 MSK1                              00000001
@@ -380,7 +377,7 @@ OSCTUNE                           00000090
 OSFIE                             00000007
 OSFIF                             00000007
 OSTS                              00000003
-MPASM 5.87                       TP2_C+S.ASM   8-27-2026  23:38:06         PAGE  8
+MPASM 5.87                       TP2_C+S.ASM   8-27-2026  23:52:05         PAGE  8
 
 
 SYMBOL TABLE
@@ -410,7 +407,7 @@ PORTB                             00000006
 PORTC                             00000007
 PORTD                             00000008
 PORTE                             00000009
-PORT_REFRESH                      0000001D
+PORT_REFRESH                      0000001B
 PR2                               00000092
 PRSEN                             00000007
 PS0                               00000000
@@ -439,7 +436,7 @@ RB1                               00000001
 RB2                               00000002
 RB3                               00000003
 RB4                               00000004
-MPASM 5.87                       TP2_C+S.ASM   8-27-2026  23:38:06         PAGE  9
+MPASM 5.87                       TP2_C+S.ASM   8-27-2026  23:52:05         PAGE  9
 
 
 SYMBOL TABLE
@@ -498,7 +495,7 @@ SET_VAR                           00000010
 SMP                               00000007
 SPBRG                             00000099
 SPBRGH                            0000009A
-MPASM 5.87                       TP2_C+S.ASM   8-27-2026  23:38:06         PAGE 10
+MPASM 5.87                       TP2_C+S.ASM   8-27-2026  23:52:05         PAGE 10
 
 
 SYMBOL TABLE
@@ -547,7 +544,7 @@ T1SYNC                            00000002
 T2CKPS0                           00000000
 T2CKPS1                           00000001
 T2CON                             00000012
-TIMER                             0000001C
+TIMER                             0000001A
 TIPE_MODE                         00000024
 TMR0                              00000001
 TMR0IE                            00000005
@@ -557,7 +554,7 @@ TMR1CS                            00000001
 TMR1GE                            00000006
 TMR1H                             0000000F
 TMR1IE                            00000000
-MPASM 5.87                       TP2_C+S.ASM   8-27-2026  23:38:06         PAGE 11
+MPASM 5.87                       TP2_C+S.ASM   8-27-2026  23:52:05         PAGE 11
 
 
 SYMBOL TABLE
@@ -616,7 +613,7 @@ TRISE1                            00000001
 TRISE2                            00000002
 TRISE3                            00000003
 TRMT                              00000001
-MPASM 5.87                       TP2_C+S.ASM   8-27-2026  23:38:06         PAGE 12
+MPASM 5.87                       TP2_C+S.ASM   8-27-2026  23:52:05         PAGE 12
 
 
 SYMBOL TABLE
@@ -675,7 +672,7 @@ Z                                 00000002
 _BOR21V                           00003EFF
 _BOR40V                           00003FFF
 _BOR4V_BOR21V                     00003EFF
-MPASM 5.87                       TP2_C+S.ASM   8-27-2026  23:38:06         PAGE 13
+MPASM 5.87                       TP2_C+S.ASM   8-27-2026  23:52:05         PAGE 13
 
 
 SYMBOL TABLE
@@ -734,7 +731,7 @@ _PWRTE_OFF                        00003FFF
 _PWRTE_ON                         00003FEF
 _WDTE_OFF                         00003FF7
 _WDTE_ON                          00003FFF
-MPASM 5.87                       TP2_C+S.ASM   8-27-2026  23:38:06         PAGE 14
+MPASM 5.87                       TP2_C+S.ASM   8-27-2026  23:52:05         PAGE 14
 
 
 SYMBOL TABLE
@@ -751,6 +748,6 @@ __16F887                          00000001
 
 Errors   :     0
 Warnings :     6 reported,     0 suppressed
-Messages :     4 reported,     0 suppressed
+Messages :     3 reported,     0 suppressed
 
 
